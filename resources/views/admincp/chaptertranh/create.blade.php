@@ -1,0 +1,96 @@
+@extends('layouts.app')
+
+@section('content')
+@include('layouts.nav')
+<div class="container-fluid mt-2" style="margin-left: 120px">
+    <div class="row justify-content-center">
+        <div class="col-md-10" style="margin-top: 20px;">
+        <style>
+                .breadcrumb{
+                    background: white;
+                }
+            </style>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb shadow-sm" style="border: 1px solid rgba(0,0,0,.125);">
+                    <li class="breadcrumb-item"><a href="{{route('truyen.index')}}">Danh sách truyện</a></li>
+                    <li class="breadcrumb-item"><a href="{{url('xem-truyen/'.$truyen->slug_truyen)}}">{{$truyen->tentruyen}}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('truyen.show',[$truyen->id])}}">Danh sách chương</a></li>
+                    <li class="breadcrumb-item" aria-current="page">{{$truyen->tentruyen}}</li>
+                </ol>
+            </nav>
+
+            <div class="card">
+            <div class="card-header shadow-sm" style="background: white; font-size: 18px"><a href="{{route('truyen.show',[$truyen->id])}}">{{$truyen->tentruyen}} </a>- Thêm mới chương</div>
+
+                @if ($errors->any())
+                    <div class="alert  alert-dismissable alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="card-body">
+                    @if (session('status'))
+                   
+                        <div class="alert  alert-dismissable alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{url('/chaptertranh/store',[$truyen->id])}}"  enctype="multipart/form-data">
+                        @csrf
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên chương<span class="ml-1" style="color: red">*</span></label>
+                        <input type="text" class="form-control"  value="{{old('tieude')}}" name="tieude" onkeyup="ChangeToSlug();" id="slug">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Url chương<span class="ml-1" style="color: red">*</span></label>
+                        <input readonly="readonly" type="text" class="form-control"  value="{{old('slug_chapter')}}" name="slug_chaptertranh" id="convert_slug">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tóm tắt</label>
+                        <input type="text" class="form-control" value="{{old('tomtat')}}" name="tomtat">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ảnh truyện<span class="ml-1" style="color: red">*</span></label>                    
+                        <input type="file" class="form-control-file" name="image[]" multiple>
+                    </div>
+
+                    <div class="form-group" style="display: none">
+                        <label for="exampleInputEmail1">Thuộc truyện</label>
+                        <select name="truyen_id" class="custom-select">                         
+                                <option value="{{$truyen->id}}">{{$truyen->tentruyen}}</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Kích hoạt</label>
+                        <select name="kichhoat" class="custom-select">
+                            <option value="0">Kích hoạt</option>
+                            <option value="1">Không kích hoạt</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" name="themchaptertranh" class="btn btn-primary">Thêm chương</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

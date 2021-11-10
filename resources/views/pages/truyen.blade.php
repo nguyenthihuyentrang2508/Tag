@@ -273,17 +273,20 @@
    }
 </style>
 
-<p>Từ khóa tìm kiếm:
+<p>Thẻ Tag:
   @php
     $tukhoa = explode(",", $truyen->tukhoa);
+    $the_tag = $truyen->tukhoa;
   @endphp
+  @if ($the_tag)
   <div class="tagcloud05">
     <ul>
       @foreach ($tukhoa as $key => $tu )
       <li><a href="{{url('tag/'.\Str::slug($tu))}}"><span>{{$tu}}</span></a></li>
       @endforeach     
     </ul>
-  </div>  
+  </div> 
+  @endif 
 </p>
 
  

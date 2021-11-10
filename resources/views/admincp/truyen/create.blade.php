@@ -145,6 +145,44 @@
  
 }
 
+.tooltip1 {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip1 .tooltiptext {
+  font-size: 14px;
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip1 .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip1:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 /*.remove-image {
   width: 200px;
   margin: 0;
@@ -172,6 +210,7 @@
   transition: all .2s ease;
 }*/
 </style>
+
 <div class="container-fluid mt-2" style="margin-left: 120px">
     <div class="row justify-content-center">
     <div class="col-md-10" style="margin-top: 20px">
@@ -230,7 +269,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Từ khóa</label>
+                      <label for="exampleInputEmail1">
+                        Thẻ Tag
+                        <div class="tooltip1"><i class="far fa-question-circle"></i>
+                        <span class="tooltiptext">Nhập tên thẻ tag và enter</span>
+                        </div>
+                      </label>
                         <input class="form-control" value="{{old('tukhoa')}}" type="text" name="tukhoa" data-role="tagsinput" >
                     </div>
 

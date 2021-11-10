@@ -178,6 +178,7 @@ class TruyenController extends Controller
             [
             'tentruyen' => 'required|max:50', 
             'slug_truyen' => 'required|max:50', 
+            'tukhoa' => 'max:50',
             'tomtat' => 'required',
             'kichhoat' => 'required', 
             'danhmuc' => 'required',
@@ -190,8 +191,7 @@ class TruyenController extends Controller
             [    
                 'slug_truyen.required' => 'Phải có slug truyện',
                 'tentruyen.required' => 'Phải nhập tên truyện', 
-                'slug_truyen.unique' => 'Slug truyện này có đã có rồi',
-                'tentruyen.unique' => 'Tên truyện này đã có rồi', 
+                'tukhoa.max' => 'Từ khóa chỉ giới hạn đc 50 ký tự',
                 'tomtat.required' => 'Phải nhập tóm tắt', 
                 'tacgia.required' => 'Phải nhập tên tác giả', 
                 'tentruyen.max' => 'Tên truyện không được dài quá 50 ký tự',
@@ -205,6 +205,7 @@ class TruyenController extends Controller
         $truyen->tentruyen = $data['tentruyen'];
         $truyen->slug_truyen = $data['slug_truyen'];
         $truyen->tomtat = $data['tomtat'];
+        $truyen->tukhoa =  $data['tukhoa'];
         $truyen->kichhoat = $data['kichhoat'];
         $truyen->danhmuc_id = $data['danhmuc'];
         $truyen->tacgia = $data['tacgia'];
